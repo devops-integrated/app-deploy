@@ -1,12 +1,19 @@
 pipeline {
     agent any
     environment {
-        IMAGE = "nagadockeruser/my-app:latest"
+        IMAGE = "nagadockeruser/my-app:latest" // Update with your actual Docker Hub username
     }
     stages {
         stage('Build Docker Image') {
             steps {
+                echo 'Building the app...'
                 sh 'docker build -t $IMAGE .'
+            }
+        }
+        stage('Test Docker') {
+            steps {
+                echo 'Testing Docker installation...'
+                sh 'docker --version'
             }
         }
         stage('Push to Docker Hub') {
