@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        IMAGE = "your-dockerhub-username/my-app:latest"
+        IMAGE = "nagadockeruser/my-app:latest"
     }
     stages {
         stage('Build Docker Image') {
@@ -27,4 +27,3 @@ pipeline {
         }
     }
 }
-
