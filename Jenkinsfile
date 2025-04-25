@@ -1,14 +1,12 @@
 pipeline {
     agent any
-
     environment {
-        IMAGE = "your-dockerhub-username/my-app:latest"
+        IMAGE = "nagadockeruser/my-app:latest"
     }
-
     stages {
         stage('Build Docker Image') {
             steps {
-                // This step will build the Docker image
+                echo 'Building the app...'
                 sh 'docker build -t $IMAGE .'
             }
         }
@@ -20,6 +18,12 @@ pipeline {
                         docker push $IMAGE
                     '''
                 }
+            }
+        }
+        stage('Deploy to Kubernetes') {
+            steps {
+                sh 'kubectl apply -f k8s/deployment.yaml'
+                sh 'kubectl apply -f k8s/service.yaml'
             }
         }
     }
